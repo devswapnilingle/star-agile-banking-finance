@@ -1,5 +1,5 @@
 - name : Configure Docker on EC2 Instances
-  hosts : all
+  hosts : demo-swapnil
   become: true
   connection : ssh
   tasks : 
