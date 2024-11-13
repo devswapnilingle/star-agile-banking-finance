@@ -4,11 +4,10 @@
   connection : ssh
   tasks :  
 
-  - name : Install Docker
-    command : sudo apt-get install -y docker.io
+  - name : version Docker
+    command : docker --version
+  # - name : Start Docker Service
+  #   command : sudo systemctl start docker
 
-  - name : Start Docker Service
-    command : sudo systemctl start docker
-
-  - name: Deploy Docker Container
-    command: docker run -itd -p 8084:8081 imswapnil/bankapp-eta-app:latest
+  # - name: Deploy Docker Container
+  #   command: docker run -itd -p 8084:8081 imswapnil/bankapp-eta-app:latest
