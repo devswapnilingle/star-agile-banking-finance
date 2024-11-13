@@ -1,36 +1,16 @@
-- name: Configure Docker on EC2 Instances
-  hosts: all
+- name : Configure Docker on EC2 Instances
+  hosts : all
   become: true
-  connection: ssh
-  tasks: 
-    - name: Update apt repositories
-      apt:
-        update_cache: yes
+  connection : ssh
+  tasks : 
+  - name: updating apt
+    command : sudo apt-get update
 
-    - name: Install Docker
-      apt:
-        name: docker.io
-        state: present
+  - name : Install Docker
+    command : sudo apt-get install -y docker.io
 
-    - name: Start Docker service
-      systemd:
-        name: docker
-        state: started
-        enabled: yes
+  - name : Start Docker Service
+    command : sudo systemctl start docker
 
-    - name: Add jenkins user to docker group
-      user:
-        name: jenkins
-        groups: docker
-        append: yes
-
-    - name: Verify docker installation
-      command: docker --version
-      register: docker_version
-
-    - name: Show docker version
-      debug:
-        msg: "Docker Version: {{ docker_version.stdout }}"
-
-    - name: Deploy Docker Container
-      command: docker run -itd -p 8084:8081 imswapnil/bankapp-eta-app:latest
+  - name: Deploy Docker Container
+    command: docker run -itd -p 8084:8081 imswapnil/bankapp-eta-app:latest
